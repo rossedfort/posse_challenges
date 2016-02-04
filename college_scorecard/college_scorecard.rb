@@ -24,8 +24,8 @@ class CollegeScorecard
 
   def top_average_faculty_salary(amount, arg2 = nil)
     top_amount = universities.sort_by do |univ|
-      univ[:avgfacsal]
-    end.reverse[0..(amount.to_i - 1)]
+      -univ[:avgfacsal]
+    end.first(amount.to_i)
     top_amount.each {|state| puts state[:instnm]}
   end
 
