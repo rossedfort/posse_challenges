@@ -1,18 +1,24 @@
+require 'pry'
 class Ceaser
   attr_reader :key, :sentence, :map
 
-  def initialize(key, sentence)
-    @key = key
+  def initialize(args)
+    @key = args[0].to_i
+    @sentence = args[1..-1]
     @map = ("a".."z").to_a
-    @sentence = sentence.chars
   end
 
-  def encrypt(key, sentence)
-    sentence.map.with_index do |char, index|
-      index += key
-    end
+  def map_sentence_to_character_values
+    wowowow = sentence.map do |word|
+      word.chars.map do |char|
+        if map.include?(char)
+          map[(map.index(char) + key) % 26]
+        else
+          map[(map.index(char.downcase) + key) % 26].upcase
+        end
+      end.join("")
+    end.join(" ")
   end
-
 end
 
-Ceaser.new(ARGV).encrypt
+ puts Ceaser.new(ARGV).map_sentence_to_character_values
