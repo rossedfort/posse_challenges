@@ -26,28 +26,28 @@ class CollegeScorecard
     top_amount = universities.sort_by do |univ|
       -univ[:avgfacsal]
     end.first(amount.to_i)
-    top_amount.each {|state| puts state[:instnm]}
+    top_amount.each {|university| puts university[:instnm]}
   end
 
   def median_debt_between(lower, upper)
-    sanitized = universities.map do |univ|
-      if sanitize(univ)
-        {instnm: univ[:instnm], grad_debt_mdn: univ[:grad_debt_mdn].to_i}
+    sanitized = universities.map do |university|
+      if sanitize(university)
+        {instnm: university[:instnm], grad_debt_mdn: university[:grad_debt_mdn].to_i}
       end
     end.compact
     calculate_median_debt_between(sanitized, lower, upper).each do |university|
-      p "#{university[:instnm]} ($#{university[:grad_debt_mdn]})"
+      puts "#{university[:instnm]} ($#{university[:grad_debt_mdn]})"
     end
   end
 
   def calculate_median_debt_between(sanitized, lower, upper)
     sanitized.select do |university|
-      university[:grad_debt_mdn] < upper.to_i &&  university[:grad_debt_mdn] > lower.to_i
+      university[:grad_debt_mdn] < upper.to_i && university[:grad_debt_mdn] > lower.to_i
     end
   end
 
-  def sanitize(univ)
-    Float(univ[:grad_debt_mdn]) != nil rescue false
+  def sanitize(university)
+    Float(university[:grad_debt_mdn]) != nil rescue false
   end
 end
 
