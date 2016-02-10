@@ -8,8 +8,8 @@ class Ceaser
     @map = ("a".."z").to_a
   end
 
-  def map_sentence_to_character_values
-    wowowow = sentence.map do |word|
+  def encode
+    sentence.map do |word|
       word.chars.map do |char|
         if map.include?(char)
           map[(map.index(char) + key) % 26]
@@ -21,4 +21,4 @@ class Ceaser
   end
 end
 
- puts Ceaser.new(ARGV).map_sentence_to_character_values
+ puts Ceaser.new(ARGV).encode
