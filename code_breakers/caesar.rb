@@ -1,20 +1,22 @@
 require 'pry'
 class Ceaser
-  attr_reader :key, :sentence, :map
+  attr_reader :key, :sentence, :alphabet
 
   def initialize(args)
     @key = args[0].to_i
     @sentence = args[1..-1]
-    @map = ("a".."z").to_a
+    @alphabet = ("a".."z").to_a
   end
 
   def encode
     sentence.map do |word|
       word.chars.map do |char|
-        if map.include?(char)
-          map[(map.index(char) + key) % 26]
+        if alphabet.include?(char)
+          alphabet[(alphabet.index(char) + key) % 26]
+        elsif alphabet.include?(char.downcase)
+          alphabet[(alphabet.index(char.downcase) + key) % 26].upcase
         else
-          map[(map.index(char.downcase) + key) % 26].upcase
+          char
         end
       end.join("")
     end.join(" ")
