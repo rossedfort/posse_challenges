@@ -11,9 +11,23 @@ class Vigenere
     @encoded = []
   end
 
+
   def encode
-    # (sentence_length / key_length) ex4 x multiply the key
-    # (sentence_length % key_length) ex ad the first two elements
+    key_index = 0
+    sentence.map do |char|
+      if key_index == key_length
+        key_index = 0
+      end
+
+      if alphabet.include?(char)
+        char = alphabet[(alphabet.index(char) + key[key_index]) % 26]
+        key_index += 1
+      elsif alphabet.include?(char.downcase)
+        char = alphabet[(alphabet.index(char.downcase) + key[key_index]) % 26].upcase
+        key_index += 1
+      end
+        char
+    end.join("")
   end
 end
 
