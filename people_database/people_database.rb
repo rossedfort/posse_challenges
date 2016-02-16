@@ -11,4 +11,8 @@ class PeopleDatabase
     person = Person.new(person_data)
     people << person
   end
+
+  def remove(email)
+    people.delete_if { |person| person.email == email}
+  end
 end 
