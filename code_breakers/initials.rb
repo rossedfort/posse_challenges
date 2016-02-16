@@ -9,8 +9,7 @@ class Initials
     initials = name.map do |word|
       word[0].upcase
     end.join
-    puts initials
   end
 end
 
-Initials.new(ARGV).print_initials
+puts Initials.new(ARGV).print_initials
