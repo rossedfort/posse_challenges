@@ -13,6 +13,10 @@ class PeopleDatabase
   end
 
   def remove(email)
-    people.delete_if { |person| person.email == email}
+    people.delete_if { |person| person.email == email }
   end
-end 
+
+  def by_state(state)
+    people.select { |person| person.state == state }
+  end
+end
