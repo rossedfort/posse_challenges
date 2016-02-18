@@ -8,8 +8,17 @@ class PeopleDatabase
   end
 
   def add(person_data)
-    person = Person.new(person_data)
-    people << person
+    if person_data.class == Hash
+      make_new_person(person_data)
+    else
+      person_data.each do |peep|
+        make_new_person(peep)
+      end
+    end
+  end
+
+  def make_new_person(person)
+    people << Person.new(person)
   end
 
   def remove(email)
@@ -17,6 +26,14 @@ class PeopleDatabase
   end
 
   def by_state(state)
-    people.select { |person| person.state == state }
+    people.select { |person| person.state == state.upcase }
+  end
+
+  def all_emails
+    people.map { |person| person.email }.join(", ")
+  end
+
+  def state_count(state)
+    by_state(state.upcase).count
   end
 end
