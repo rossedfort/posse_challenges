@@ -1,5 +1,3 @@
-require 'pry'
-
 class Enums
   def self.any?(collection, condition)
     collection.each do |num|
